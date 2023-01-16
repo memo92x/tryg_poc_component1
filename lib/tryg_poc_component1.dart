@@ -7,12 +7,13 @@ import 'package:gap/gap.dart';
 class TrygComponent1 extends StatefulWidget {
   final String? car;
   final String? description;
+  final VoidCallback voidCallback;
 
   const TrygComponent1(
       {Key? key,
         this.car,
-        this.description
-
+        this.description,
+        required this.voidCallback
       }) : super(key: key);
 
   @override
@@ -41,18 +42,25 @@ class _TrygComponent1State extends State<TrygComponent1> {
             Row(
               children: [
                 Text("Bil: ${widget.car}"),
-
               ],
             ),
             const Gap(30),
             Row(
               children: [
-                Text("Description: ${widget.description}")
+                Text("Description: ${widget.description}"),
+              ],
+            ),
+            Row(
+              children: [
+                 ElevatedButton(
+                    onPressed: widget.voidCallback,
+                    child: const Text("Send callback")
+                ),
               ],
             )
           ],
         )
-      )
+      ),
     );
   }
 }

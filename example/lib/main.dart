@@ -8,6 +8,10 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  void doSomething(String s) {
+    print("Printer: ${s}");
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -19,10 +23,13 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: TrygComponent1(
               car: 'Opel Vectra',
-              description: 'Der er sket en skade på højre forlygte'
+              description: 'Der er sket en skade på højre forlygte',
+              voidCallback: () {
+                print('Callback sendt fra component 1');
+              },
             ),
           ),
         ),
