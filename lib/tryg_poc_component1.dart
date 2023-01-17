@@ -5,15 +5,13 @@ import 'package:gap/gap.dart';
 
 
 class TrygComponent1 extends StatefulWidget {
-  final String? car;
-  final String? description;
-  final VoidCallback voidCallback;
+  final String? name;
+  final Function(String value) callback;
 
   const TrygComponent1(
       {Key? key,
-        this.car,
-        this.description,
-        required this.voidCallback
+        this.name,
+        required this.callback
       }) : super(key: key);
 
   @override
@@ -21,44 +19,69 @@ class TrygComponent1 extends StatefulWidget {
 }
 
 class _TrygComponent1State extends State<TrygComponent1> {
+  String age = "";
+
+  final ageController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    ageController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  void onButtonPressed() {
+    setState(() {
+      age = ageController.text;
+    });
   }
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return SizedBox(
       width: size.width,
-      height: 130,
+      height: 240,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.purple,
         ),
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Text("Bil: ${widget.car}"),
-              ],
-            ),
-            const Gap(30),
-            Row(
-              children: [
-                Text("Description: ${widget.description}"),
-              ],
-            ),
-            Row(
-              children: [
-                 ElevatedButton(
-                    onPressed: widget.voidCallback,
-                    child: const Text("Send callback")
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: ageController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Indsæt alder',
                 ),
-              ],
-            )
-          ],
+              ),
+              const Gap(30),
+
+              Row(
+                children: [
+                  Text("Navn: ${widget.name}"),
+                ],
+              ),
+
+              const Gap(20),
+              Row(
+                children: [
+                   ElevatedButton(
+                      onPressed: () => widget.callback.call("Info modtaget fra ${widget.name} med alder ${ageController.value.text}"),
+                      child: const Text("Send callback")
+                  ),
+                ],
+              )
+            ],
+          ),
         )
       ),
     );

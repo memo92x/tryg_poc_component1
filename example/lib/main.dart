@@ -25,10 +25,9 @@ class MyApp extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: TrygComponent1(
-              car: 'Opel Vectra',
-              description: 'Der er sket en skade på højre forlygte',
-              voidCallback: () {
-                print('Callback sendt fra component 1');
+              name: 'Mehmet',
+              callback: (v) {
+                print('Callback med info ${v}');
               },
             ),
           ),
